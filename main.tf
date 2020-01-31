@@ -31,7 +31,7 @@ resource google_compute_firewall "allow-ssh-tunnel-external-access" {
 
 resource google_compute_firewall "allow-afrl-sp-subnet-access" {
   name    = "allow-afrl-sp-subnet-access"
-  network = "projects/${var.project_id}/global/networks/${data.terraform_remote_state.project-and-networks.outputs.jenkins-standalone-project-network-name}"
+  network = "projects/${var.project_id}/global/networks/${data.terraform_remote_state.project-and-networks.outputs.afrl-shared-vpc-network-name}"
   project = var.project_id
   allow {
     protocol = "tcp"
