@@ -58,7 +58,7 @@ resource "google_compute_instance" "ssh-tunnel-endpoint-server" {
 
 
   network_interface {
-    subnetwork = "projects/${var.project_id}/regions/${var.region}/subnetworks/${data.terraform_remote_state.project-and-networks.outputs.afrl-shared-vpc-subnet-1}"
+    subnetwork = "projects/${data.terraform_remote_state.project-and-networks.outputs.shared_vpc_host_project}/regions/${var.region}/subnetworks/${data.terraform_remote_state.project-and-networks.outputs.afrl-shared-vpc-subnet-1}"
 
     access_config {
       nat_ip = google_compute_address.ssh-tunnel-external-access.address
