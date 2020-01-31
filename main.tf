@@ -20,7 +20,7 @@ resource "google_compute_address" "ssh-tunnel-external-access" {
 resource google_compute_firewall "allow-ssh-tunnel-external-access" {
   name    = "allow-ssh-tunnel-endpoint-access"
   network = "projects/${var.project_id}/global/networks/${data.terraform_remote_state.project-and-networks.outputs.afrl-shared-vpc-network-name}"
-  project = var.project_id
+  project = data.terraform_remote_state.project-and-networks.outputs.shared_vpc_host_project
   allow {
     protocol = "tcp"
     ports    = ["22"]
@@ -32,7 +32,7 @@ resource google_compute_firewall "allow-ssh-tunnel-external-access" {
 resource google_compute_firewall "allow-afrl-sp-subnet-access" {
   name    = "allow-afrl-sp-subnet-access"
   network = "projects/${var.project_id}/global/networks/${data.terraform_remote_state.project-and-networks.outputs.afrl-shared-vpc-network-name}"
-  project = var.project_id
+  project = data.terraform_remote_state.project-and-networks.outputs.shared_vpc_host_project
   allow {
     protocol = "tcp"
   }
@@ -40,7 +40,7 @@ resource google_compute_firewall "allow-afrl-sp-subnet-access" {
   source_ranges = ["${data.terraform_remote_state.project-and-networks.outputs.afrl-shared-vpc-subnet-cidr_block}"]
 }
 
-resource "google_compute_instance" "jenkins-server" {
+resource "google_compute_instance" "ssh-tunnel-endpoint-server" {
   name         = "afrl-ssh-tunnel-endpoint"
   project = var.project_id
   machine_type = "n1-standard-2"
