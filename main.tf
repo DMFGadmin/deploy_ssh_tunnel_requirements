@@ -19,7 +19,7 @@ resource "google_compute_address" "ssh-tunnel-external-access" {
 
 resource google_compute_firewall "allow-ssh-tunnel-external-access" {
   name    = "allow-ssh-tunnel-endpoint-access"
-  network = "projects/${var.project_id}/global/networks/${data.terraform_remote_state.project-and-networks.outputs.afrl-shared-vpc-network-name}"
+  network = "projects/${data.terraform_remote_state.project-and-networks.outputs.shared_vpc_host_project}/global/networks/${data.terraform_remote_state.project-and-networks.outputs.afrl-shared-vpc-network-name}"
   project = data.terraform_remote_state.project-and-networks.outputs.shared_vpc_host_project
   allow {
     protocol = "tcp"
@@ -31,7 +31,7 @@ resource google_compute_firewall "allow-ssh-tunnel-external-access" {
 
 resource google_compute_firewall "allow-afrl-sp-subnet-access" {
   name    = "allow-afrl-sp-subnet-access"
-  network = "projects/${var.project_id}/global/networks/${data.terraform_remote_state.project-and-networks.outputs.afrl-shared-vpc-network-name}"
+  network = "projects/${data.terraform_remote_state.project-and-networks.outputs.shared_vpc_host_project}/global/networks/${data.terraform_remote_state.project-and-networks.outputs.afrl-shared-vpc-network-name}"
   project = data.terraform_remote_state.project-and-networks.outputs.shared_vpc_host_project
   allow {
     protocol = "tcp"
