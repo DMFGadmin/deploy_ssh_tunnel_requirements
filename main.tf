@@ -44,13 +44,13 @@ resource "google_compute_instance" "ssh-tunnel-endpoint-server" {
   name         = "afrl-ssh-tunnel-endpoint"
   project = var.project_id
   machine_type = "n1-standard-2"
-  tags = ["${var.ssh_tunnel_tags}"]
+  tags = ["${var.ssh_tunnel_tags}", "${var.external_ssh_access_tag}"]
 
   zone = var.zone
 
   boot_disk {
     initialize_params {
-      image = "projects/${var.project_id}/global/images/jenkins-image-for-deployment"
+      image = "projects/debian-cloud/global/images/debian-9-stretch-v20191210"
       size = 10
       type  = "pd-standard"
     }
